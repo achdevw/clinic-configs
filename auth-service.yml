@@ -5,6 +5,7 @@ server:
 spring:
   application:
     name: auth-service
+    spring.config.import: "configserver:http://localhost:8888"
 
   datasource:
     url: jdbc:mysql://localhost:8889/authdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
