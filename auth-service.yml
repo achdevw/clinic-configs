@@ -1,6 +1,6 @@
 # medical-configs/auth-service.yml
 server:
-  port: 9008
+  port: 9001
 
 spring:
   application:
