@@ -1,28 +1,43 @@
 server:
-  port: 9000  # Set your gateway port here
+  port: 9000
 
 spring:
   application:
     name: gateway-service
 
-  config:
-    import: "optional:configserver:http://localhost:8888"  # Config server URL
-    # You can also use environment variables for better flexibility, e.g.
-    # import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}"
-
   cloud:
     gateway:
       discovery:
         locator:
-          enabled: true  # Enable discovery locator
-          lower-case-service-id: true  # Convert service ID to lowercase
-    config:
-      enabled: true  # Enable config feature
-      fail-fast: false  # Don't fail if config server is unavailable
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+        - id: medecin-service
+          uri: lb://medecin-service
+          predicates:
+            - Path=/api/medecins/**
+        - id: rendezvous-service
+          uri: lb://rendezvous-service
+          predicates:
+            - Path=/api/rendezvous/**
+        - id: patient-service
+          uri: lb://patient-service
+          predicates:
+            - Path=/api/patients/**
 
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}  # Use environment variable for Eureka URL
-    register-with-eureka: true  # Register with Eureka server
-    fetch-registry: true  # Fetch the registry from Eureka server
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
