@@ -1,11 +1,12 @@
-# medical-configs/auth-service.yml
 server:
   port: 9001
 
 spring:
   application:
     name: auth-service
-    spring.config.import: "configserver:http://localhost:8888"
+
+  config:
+    import: "optional:configserver:http://localhost:8888"
 
   datasource:
     url: jdbc:mysql://localhost:8889/authdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
