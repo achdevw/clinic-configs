@@ -6,7 +6,7 @@ spring:
     name: medecin-service
 
   datasource:
-    url: jdbc:mysql://localhost:8889/medecindb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/medecindb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: root
     password: root
 
